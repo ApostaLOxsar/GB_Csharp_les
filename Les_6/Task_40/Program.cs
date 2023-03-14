@@ -23,4 +23,4 @@ int b = int.Parse(Console.ReadLine());
 Console.WriteLine("Введите сторону C");
 int c = int.Parse(Console.ReadLine());
 
-Console.Write(gettriangle(a, b, c));
+Console.Write(GetTriangle(a, b, c));
