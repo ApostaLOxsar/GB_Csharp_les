@@ -37,7 +37,7 @@ void fillBinaryArray(int[,] binaryArray)
         {
             binaryArray[i, j] = temp; //new Random().Next(0, 10);
             temp++;
-            Console.Write(binaryArray[i, j] +" ");
+            Console.Write(binaryArray[i, j] + " ");
         }
         Console.WriteLine();
     }
@@ -46,16 +46,28 @@ fillBinaryArray(binaryArray);
 
 //Как я понял мы задаём номер элемента а не его позицию x,y
 //Так как в примере вводится только 1 значение
-Console.Write("Введите номер искомого элемента: ");
-int foundIndex = int.Parse(Console.ReadLine());
+foundNumberElement(binaryArray);
+void foundNumberElement(int[,] binaryArray)
+{
+    Console.Write("Введите номер искомого элемента: ");
+    int foundIndex = int.Parse(Console.ReadLine());
 
-if (foundIndex > binaryArray.Length - 1)
-{
-    Console.WriteLine("Такого элемента нет");
-}
-else
-{
-    int foundI = foundIndex / (binaryArray.GetLength(0) + 1);
-    int foundJ = foundIndex % binaryArray.GetLength(1);
-    Console.WriteLine($"Искомый элемент находится на позиции [{foundI},{foundJ}] = {binaryArray[foundI, foundJ]}");
+    if (foundIndex > binaryArray.Length - 1)
+    {
+        Console.WriteLine("Такого элемента нет");
+    }
+    else
+    {
+        int foundI = foundIndex / binaryArray.GetLength(1);
+        int foundJ = foundIndex % binaryArray.GetLength(1);
+        //Console.WriteLine($"Искомый элемент находится на позиции [{foundJ},{foundI}]");
+        Console.WriteLine($"Искомый элемент находится на позиции [{foundI},{foundJ}] = {binaryArray[foundI, foundJ]}");
+    }
+    Console.WriteLine($"для повтора поиска нажмите enter, если нет введите любой символ");
+    string returnFoundUndex = "";
+    returnFoundUndex = (Console.ReadLine());
+    if (returnFoundUndex == "")
+    {
+        foundNumberElement(binaryArray);
+    }
 }
