@@ -20,14 +20,6 @@ for (int i = 0; i < binaryArray.GetLength(0); i++)
 
 Console.Clear();
 
-Console.Write("Введите количество строк в двухмерном массиве: ");
-int arrayLine = int.Parse(Console.ReadLine());
-
-Console.Write("Введите количество столбцов в двухмерном массиве: ");
-int arrayColumns = int.Parse(Console.ReadLine());
-
-int[,] binaryArray = new int[arrayLine, arrayColumns];
-
 void fillBinaryArray(int[,] binaryArray)
 {
     int temp = 0;
@@ -42,6 +34,15 @@ void fillBinaryArray(int[,] binaryArray)
         Console.WriteLine();
     }
 }
+
+Console.Write("Введите количество строк в двухмерном массиве: ");
+int arrayLine = int.Parse(Console.ReadLine());
+
+Console.Write("Введите количество столбцов в двухмерном массиве: ");
+int arrayColumns = int.Parse(Console.ReadLine());
+
+int[,] binaryArray = new int[arrayLine, arrayColumns];
+
 fillBinaryArray(binaryArray);
 
 //Как я понял мы задаём номер элемента а не его позицию x,y
