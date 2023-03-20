@@ -3,11 +3,11 @@
 //---------------------------------------------------------
 Console.Clear();
 
-Console.Write("Введите количество столбцов в двухмерном массиве: ");
-int arrayColumns = int.Parse(Console.ReadLine());
-
 Console.Write("Введите количество строк в двухмерном массиве: ");
 int arrayLine = int.Parse(Console.ReadLine());
+
+Console.Write("Введите количество столбцов в двухмерном массиве: ");
+int arrayColumns = int.Parse(Console.ReadLine());
 
 int[,] binaryArray = new int[arrayLine, arrayColumns];
 
