@@ -3,15 +3,7 @@
 //---------------------------------------------------------
 Console.Clear();
 
-Console.Write("Введите количество строк в двухмерном массиве: ");
-int arrayLine = int.Parse(Console.ReadLine());
-
-Console.Write("Введите количество столбцов в двухмерном массиве: ");
-int arrayColumns = int.Parse(Console.ReadLine());
-
-int[,] binaryArray = new int[arrayLine, arrayColumns];
-
-void fillBinaryArray(int[,] binaryArray)
+void FillBinaryArray(int[,] binaryArray)
 {
     for (int i = 0; i < binaryArray.GetLength(0); i++)
     {
@@ -21,12 +13,22 @@ void fillBinaryArray(int[,] binaryArray)
         }
     }
 }
-fillBinaryArray(binaryArray);
+
+
+Console.Write("Введите количество строк в двухмерном массиве: ");
+int arrayLine = int.Parse(Console.ReadLine());
+
+Console.Write("Введите количество столбцов в двухмерном массиве: ");
+int arrayColumns = int.Parse(Console.ReadLine());
+
+int[,] binaryArray = new int[arrayLine, arrayColumns];
+
+FillBinaryArray(binaryArray);
 //---------------------------------------------------------
 
 // вывод двухмерного масива
 //---------------------------------------------------------
-void outBinaryArray(int[,] array)
+void OutBinaryArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -34,10 +36,11 @@ void outBinaryArray(int[,] array)
         {
             Console.Write($"{array[i, j]} ");  //вывод массива
         }
-        Console.WriteLine("");
+        Console.WriteLine();
     }
+    Console.WriteLine();
 }
-outBinaryArray(binaryArray);
+OutBinaryArray(binaryArray);
 //---------------------------------------------------------
 
 
@@ -48,7 +51,7 @@ int number = int.Parse(Console.ReadLine());
 
 int[] array = new int[number];
 
-void fillArray(int[] array)
+void FillArray(int[] array)
 {
     for (int i = 0; i < array.Length; i++)
     {
@@ -56,21 +59,21 @@ void fillArray(int[] array)
     }
 }
 
-fillArray(array); // передача масива
+FillArray(array); // передача масива
 //---------------------------------------------------------
 
 
 // вывод  масива
 //---------------------------------------------------------
-void outArray(int[] array)
+void OutArray(int[] array)
 {
     for (int i = 0; i < array.Length; i++)
     {
         Console.Write($"{array[i]} ");  //вывод массива
     }
-    Console.WriteLine("");
+    Console.WriteLine();
 }
-outArray(array);
+OutArray(array);
 //---------------------------------------------------------
 
 
