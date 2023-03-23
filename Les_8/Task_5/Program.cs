@@ -1,8 +1,9 @@
 ﻿Console.Clear();
 
+Console.Write("Введите количество строк : ");
 int row = int.Parse(Console.ReadLine());
 int[,] triangle = new int[row, row];
-const int cellWidht = 3;
+const int cellWidht = 1;
 
 void FillTriangle()
 {
@@ -42,7 +43,11 @@ void PrintTabTriangle()
         for (int j = 0; j < row; j++)
         {
             Console.SetCursorPosition(col, i + 1);
-            if (triangle[i, j] != 0) Console.Write($"{triangle[i, j],cellWidht}");
+            if (triangle[i, j] % 4 != 0)
+            {
+                //Console.Write($"{triangle[i, j],cellWidht}");
+                Console.Write("*");
+            }
             col += cellWidht * 2;
         }
         col = cellWidht * row - cellWidht * (i + 1);
@@ -53,3 +58,4 @@ void PrintTabTriangle()
 
 FillTriangle();
 PrintTabTriangle();
+Console.ReadLine();

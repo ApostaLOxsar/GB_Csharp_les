@@ -1,0 +1,1 @@
+index = (index == colors.Length) ? 0 : index; что это?
