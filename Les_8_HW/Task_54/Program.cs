@@ -32,10 +32,20 @@ void GetSortMassiv(int[,] array)
         {
             tempMassiv[j] = array[i, j];
         }
-        Array.Sort(tempMassiv);
+        //Array.Sort(tempMassiv);
+        for (int j = 0; j < tempMassiv.Length - 1; j++)//Сортировка *руками*
+        {
+
+            for (int k = j + 1; k < tempMassiv.Length; k++)
+            {
+                if (tempMassiv[k] >= tempMassiv[j]) (tempMassiv[j], tempMassiv[k]) = (tempMassiv[k], tempMassiv[j]);
+            }
+
+        } 
+
         for (int j = 0; j < array.GetLength(1); j++)
         {
-           array[i, j] = tempMassiv[j];
+            array[i, j] = tempMassiv[j];
         }
     }
 }

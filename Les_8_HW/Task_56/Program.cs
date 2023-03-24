@@ -40,6 +40,15 @@ void GetSumElementMassInNewMass(int[,] array, int[] result)
     }
 }
 
+int GetNumberMin (int[] result)
+{
+    int min = 0;
+    for (int i = 1; i < result.Length; i++)
+    {
+        if (result[min] > result[i]) min = i;
+    }
+    return min;
+}
 
 Console.Write("Введите количество строк в двухмерном массиве: ");
 int arrayLine = int.Parse(Console.ReadLine());
@@ -55,15 +64,9 @@ int[] result = new int[binaryArray.GetLength(0)];
 FillBinaryArray(binaryArray);
 OutBinaryArray(binaryArray);
 GetSumElementMassInNewMass(binaryArray, result);
+int min = GetNumberMin(result);
 
-
-int min = 0;
-for (int i = 1; i < result.Length; i++)
-{
-    if (result[min] > result[i]) min = i;
-}
-
-
+Console.WriteLine($"индекс строки с наименьшей суммой элементов : {min}");
 for (int j = 0; j < binaryArray.GetLength(1); j++)
 {
     Console.Write($"{binaryArray[min, j]} ");
