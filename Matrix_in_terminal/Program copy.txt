@@ -13,52 +13,10 @@ namespace testtttt_matrix2
         static Random randomPosition = new Random();
         static Random randomNumber = new Random();
 
-        // создаем новый поток
-        Thread myThread1 = new Thread(new ThreadStart(tws.thred1));
-        Thread myThread2 = new Thread(thred2);
-        ThreadWithState tws = new ThreadWithState(
-                        "This report displays the number {0}.", 42);
-
-        //--------------------------------------------------
-        public class ThreadWithState
-        {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
-
-            // The constructor obtains the state information.
-            public ThreadWithState(string text, int number)
-            {
-                boilerplate = text;
-                numberValue = number;
-            }
-
-            public void ThreadProc()
-            {
-                Console.WriteLine(boilerplate, numberValue);
-            }
-        }
-
-        // Entry point for the example.
-        //
-
-        public static void Main()
-        {
-            // Supply the state information required by the task.
-            ThreadWithState tws = new ThreadWithState(
-                "This report displays the number {0}.", 42);
-
-            // Create a thread to execute the task, and then
-            // start the thread.
-            Thread t = new Thread(new ThreadStart(tws.ThreadProc));
-            t.Start();
-            Console.WriteLine("Main thread does some work, then waits.");
-            t.Join();
-            Console.WriteLine("Independent task has completed; main thread ends.");
-        }
-
-        //--------------------------------------------------------
-
+// создаем новый поток
+Thread myThread1 = new Thread(Print); 
+Thread myThread2 = new Thread();
+Thread myThread3 = new Thread();
 
         static int flowSpeed = 200;
         static int fastFlow = flowSpeed + 40; //время удаление// 240
@@ -146,105 +104,40 @@ namespace testtttt_matrix2
             }
         }
 
-        public class ThreadWithState
-        {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
-
-            // The constructor obtains the state information.
-            public thred1(int width, int height, int[] y)
-            {
-                int x;
-                y[0] = YPositionFields(y[0] + 1, height);
-            }
-
-            public void thred11()
-            {
-                int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-            }
-        }
-        /*private static void thred1()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }*/
-        private static void thred2()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 1; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }
         private static void ColumnUpdate(int width, int height, int[] y)
         {
-            /*int x
+            int x
                 , k3 = 5
                 , k4 = 9;
-            y[0] = YPositionFields(y[0] + 1, height);*/
+            y[0] = YPositionFields(y[0] + 1, height);
             if (Counter <= flowSpeed)//0-200
             {
-                myThread1.Start();
-                myThread2.Start();
+                for (x = 0; x < width; ++x)
+                {
+                    //if (x % 10 == k3) Console.ForegroundColor = cyancolor;
+                    //else if (x % 10 == k4) Console.ForegroundColor = fadedcolor;
+                    //else Console.ForegroundColor = basecolor;
+
+                    //Console.SetCursorPosition(x, y[x]); //печать символа
+                    //Console.Write(Asciicharacters);
+
+                    int temp = y[x] - 2;  //печать символа
+                    Console.SetCursorPosition(x, YPositionFields(temp, height));
+                    Console.Write(Asciicharacters);
+
+                    int temp1 = y[x] - 20; // печать пробела(пустое место)
+                    Console.SetCursorPosition(x, YPositionFields(temp1, height));
+                    Console.Write(' ');
+
+                    if (x == width / 5 || x == width / 2) //печать никнейма
+                    {
+                        int endTextPrintSim = randomNumber.Next(endText.Length);
+                        Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
+                        Console.Write(endText[endTextPrintSim]);
+                    }
+
+                    y[x] = YPositionFields(y[x] + 1, height);
+                }
             }
             /*else if (Counter >= flowSpeed && Counter < textFlow) //200-240
             {
