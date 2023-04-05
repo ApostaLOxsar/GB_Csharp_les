@@ -5,302 +5,197 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace testtttt_matrix2
+
+
+class Program
 {
-    class Program
+    static int Counter;
+    static Random randomPosition = new Random();
+    static Random randomNumber = new Random();
+
+
+
+    static int flowSpeed = 200;
+    static int fastFlow = flowSpeed + 40; //время удаление// 240
+    static int textFlow = flowSpeed + 40; //время ускорения//240
+    static int textEnd = flowSpeed + 0;
+
+
+
+    static string[] colors = Enum.GetNames(typeof(ConsoleColor));
+    static int index = 0;
+
+    /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
+     static ConsoleColor cyancolor = ConsoleColor.Cyan;
+     static ConsoleColor fadedcolor = ConsoleColor.White;*/
+    /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
+    static ConsoleColor cyancolor = ConsoleColor.DarkGreen;
+    static ConsoleColor fadedcolor = ConsoleColor.DarkGreen;*/
+
+
+
+    static String endText = "ApostaL_oxsar"; //никнейм
+
+    static char Asciicharacters //генерация символа
     {
-        static int Counter;
-        static Random randomPosition = new Random();
-        static Random randomNumber = new Random();
-
-        // создаем новый поток
-        Thread myThread1 = new Thread(new ThreadStart(tws.thred1));
-        Thread myThread2 = new Thread(thred2);
-        ThreadWithState tws = new ThreadWithState(
-                        "This report displays the number {0}.", 42);
-
-        //--------------------------------------------------
-        public class ThreadWithState
+        get
         {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
+            int t = randomPosition.Next(9);
 
-            // The constructor obtains the state information.
-            public ThreadWithState(string text, int number)
-            {
-                boilerplate = text;
-                numberValue = number;
-            }
-
-            public void ThreadProc()
-            {
-                Console.WriteLine(boilerplate, numberValue);
-            }
-        }
-
-        // Entry point for the example.
-        //
-
-        public static void Main()
-        {
-            // Supply the state information required by the task.
-            ThreadWithState tws = new ThreadWithState(
-                "This report displays the number {0}.", 42);
-
-            // Create a thread to execute the task, and then
-            // start the thread.
-            Thread t = new Thread(new ThreadStart(tws.ThreadProc));
-            t.Start();
-            Console.WriteLine("Main thread does some work, then waits.");
-            t.Join();
-            Console.WriteLine("Independent task has completed; main thread ends.");
-        }
-
-        //--------------------------------------------------------
-
-
-        static int flowSpeed = 200;
-        static int fastFlow = flowSpeed + 40; //время удаление// 240
-        static int textFlow = flowSpeed + 40; //время ускорения//240
-        static int textEnd = flowSpeed + 0;
-
-
-
-        static string[] colors = Enum.GetNames(typeof(ConsoleColor));
-        static int index = 0;
-
-        /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
-         static ConsoleColor cyancolor = ConsoleColor.Cyan;
-         static ConsoleColor fadedcolor = ConsoleColor.White;*/
-        /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
-        static ConsoleColor cyancolor = ConsoleColor.DarkGreen;
-        static ConsoleColor fadedcolor = ConsoleColor.DarkGreen;*/
-
-
-
-        static String endText = "ApostaL_oxsar"; //никнейм
-
-        static char Asciicharacters //генерация символа
-        {
-            get
-            {
-                int t = randomPosition.Next(9);
-
-                if (t <= 2) return (char)('0' + randomPosition.Next(10));
-                else if (t <= 4) return (char)('a' + randomPosition.Next(26));
-                else if (t <= 8) return (char)('A' + randomPosition.Next(26));
-                else return (char)(randomPosition.Next(32, 255));
-            }
-        }
-        static void Main()
-        {
-
-            Console.ForegroundColor = ConsoleColor.DarkGreen; //basecolor;
-            Console.WindowLeft = Console.WindowTop = 0;
-            Console.WindowHeight = Console.BufferHeight = Console.LargestWindowHeight;
-            Console.WindowWidth = Console.BufferWidth = Console.LargestWindowWidth;
-            Console.SetWindowPosition(0, 0);
-            Console.CursorVisible = false;
-
-            int whidth, height;
-            int[] y;
-            Initialize(out whidth, out height, out y);
-
-            while (true)
-            {
-                Counter++;
-                ColumnUpdate(whidth, height, y);
-                if (Counter > textEnd)
-                {
-                    Counter = 0;
-                    //if (Counter % 100 == 0) CallBack();
-                }
-            }
-        }
-
-        static void CallBack()
-        {
-            Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), colors[index]);
-            index++;
-            if (index == colors.Length) index = 0;
-        }
-        public static int YPositionFields(int yPosition, int height) //ограничение выхожа за границы 
-        {
-            if (yPosition < 0) return yPosition + height;
-            if (yPosition < height) return yPosition;
-            return 0;
-
-        }
-
-        private static void Initialize(out int width, out int height, out int[] y) //определение разрешение и генерация масива связи х с у
-        {
-            height = Console.WindowHeight;
-            width = Console.WindowWidth - 1;
-            y = new int[width];
-            Console.Clear();
-
-            for (int x = 0; x < width; ++x)
-            {
-                y[x] += randomPosition.Next(height);
-            }
-        }
-
-        public class ThreadWithState
-        {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
-
-            // The constructor obtains the state information.
-            public thred1(int width, int height, int[] y)
-            {
-                int x;
-                y[0] = YPositionFields(y[0] + 1, height);
-            }
-
-            public void thred11()
-            {
-                int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-            }
-        }
-        /*private static void thred1()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }*/
-        private static void thred2()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 1; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }
-        private static void ColumnUpdate(int width, int height, int[] y)
-        {
-            /*int x
-                , k3 = 5
-                , k4 = 9;
-            y[0] = YPositionFields(y[0] + 1, height);*/
-            if (Counter <= flowSpeed)//0-200
-            {
-                myThread1.Start();
-                myThread2.Start();
-            }
-            /*else if (Counter >= flowSpeed && Counter < textFlow) //200-240
-            {
-                for (x = 0; x < width; ++x)
-                {
-                    //if (x % 10 == k3) Console.ForegroundColor = cyancolor;
-                    //else if (x % 10 == k4) Console.ForegroundColor = fadedcolor;
-                    //else Console.ForegroundColor = basecolor;
-
-                    y[x] = YPositionFields(y[x] + 1, height);
-
-                    Console.SetCursorPosition(x, y[x]);
-                    Console.Write(Asciicharacters);
-
-                    if (x == width / 5 || x == width / 3) //печать никнейма
-                    {
-                        int endTextPrintSim = randomNumber.Next(endText.Length);
-                        Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                        Console.Write(endText[endTextPrintSim]);
-                    }
-                }
-            }*/
-            //else if (Counter >= fastFlow /*&& Counter < 300*/) //240-360
-            /* {
-                 for (x = 0; x < width; ++x)
-                 {
-                     int temp = YPositionFields(y[x] - 20, height);
-                     Console.SetCursorPosition(x, YPositionFields(temp, height));
-                     Console.Write(' ');
-
-                     y[x] = YPositionFields(y[x] + 1, height);
-
-                     if (x == width / 50 || x == width / 20) //печать никнейма
-                     {
-                         int endTextPrintSim = randomNumber.Next(endText.Length);
-                         Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                         Console.Write(endText[endTextPrintSim]);
-                     }
-                 }
-             }*/
-            /*else if (Counter >= 300)
-            {
-                Console.SetCursorPosition(width / 2 - 76, height / 2);
-                Console.Write("        ____     _        __                                   __                   __                            __                          ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 1);
-                Console.Write("       / __  |  (_)  ____/ /   _____           ____   ____    / /  __  __  _____   / /_   ____ _   __  __  ___   / /_   _____   __  __  ____ _");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 2);
-                Console.Write("      / /_/ /  / /  / __  /   / ___/          / __ | / __ |  / /  / / / / / ___/  / __ | / __ `/  / / / / / _ | / __/  / ___/  / / / / / __ `/");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 3);
-                Console.Write("     / ____/  / /  / /_/ /   / /             / /_/ // /_/ / / /  / /_/ / / /__   / / / // /_/ /  / /_/ / /  __// /_   (__  )  / /_/ / / /_/ / ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 4);
-                Console.Write("    /_/      /_/   |__,_/   /_/             / .___/ |____/ /_/   |__,_/  |___/  /_/ /_/ |__,_/   |__, /  |___/ |__/  /____/   |__, /  |__,_/  ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 5);
-                Console.Write("                                           /_/                                                  /____/                       /____/           ");
-
-            }*/
+            if (t <= 2) return (char)('0' + randomPosition.Next(10));
+            else if (t <= 4) return (char)('a' + randomPosition.Next(26));
+            else if (t <= 8) return (char)('A' + randomPosition.Next(26));
+            else return (char)(randomPosition.Next(32, 255));
         }
     }
+    static void Main()
+    {
+        //CallBack();
+        Console.ForegroundColor = ConsoleColor.DarkGreen; //basecolor;
+        Console.WindowLeft = Console.WindowTop = 0;
+        Console.WindowHeight = Console.BufferHeight = Console.LargestWindowHeight;
+        Console.WindowWidth = Console.BufferWidth = Console.LargestWindowWidth;
+        Console.SetWindowPosition(0, 0);
+        Console.CursorVisible = false;
+
+        int whidth, height;
+        int[] y;
+        AutoResetEvent waitHandler = new AutoResetEvent(true);
+        Initialize(out whidth, out height, out y);
+        Person whidthHeightYForTherad1 = new Person(whidth, height, y);
+        /* Thread myThread1 = new Thread(whidthHeightYForTherad1.myThread1);
+         Thread myThread2 = new Thread(whidthHeightYForTherad1.myThread2);
+         Thread myThread3 = new Thread(whidthHeightYForTherad1.myThread3);*/
+
+        while (true)
+        {
+            Thread myThread1 = new Thread(whidthHeightYForTherad1.myThread1);
+            Thread myThread2 = new Thread(whidthHeightYForTherad1.myThread2);
+            Thread myThread3 = new Thread(whidthHeightYForTherad1.myThread3);
+
+
+            myThread1.Start();
+            myThread2.Start();
+            myThread3.Start();
+            /*myThread1.Join();
+            myThread2.Join();
+            myThread3.Join();*/
+        }
+    }
+
+    static void CallBack()
+    {
+        Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), colors[index]);
+        index = new Random().Next(colors.Length);
+    }
+    public static int YPositionFields(int yPosition, int height) //ограничение выхожа за границы 
+    {
+        if (yPosition < 0) return yPosition + height;
+        if (yPosition < height) return yPosition;
+        return 0;
+
+    }
+
+    private static void Initialize(out int width, out int height, out int[] y) //определение разрешение и генерация масива связи х с у
+    {
+        height = Console.WindowHeight;
+        width = Console.WindowWidth - 1;
+        y = new int[width];
+        Console.Clear();
+
+        for (int x = 0; x < width; ++x)
+        {
+            y[x] += randomPosition.Next(height);
+        }
+    }
+
+    record class Person(int width, int height, int[] y)
+    {
+        AutoResetEvent waitHandler = new AutoResetEvent(true);
+       // y[0] = YPositionFields(y[0] + 1, height);
+        public void myThread1()
+        {
+            waitHandler.WaitOne();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            int x;
+            //y[0] = YPositionFields(y[0] + 1, height);
+
+            for (x = 1; x < width / 3; ++x)
+            {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
+                int temp = y[x] - 2;  //печать символа
+                Console.SetCursorPosition(x, YPositionFields(temp, height));
+                Console.Write(Asciicharacters);
+
+                int temp1 = y[x] - 20; // печать пробела(пустое место)
+                Console.SetCursorPosition(x, YPositionFields(temp1, height));
+                Console.Write(' ');
+
+            }
+            waitHandler.Set();
+        }
+        public void myThread2()
+        {
+            waitHandler.WaitOne();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            int x;
+            //y[0] = YPositionFields(y[0] + 1, height);
+
+            for (x = width / 3; x < width * 2 / 3; ++x)
+            {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
+                int temp = y[x] - 2;  //печать символа
+                Console.SetCursorPosition(x, YPositionFields(temp, height));
+                Console.Write(Asciicharacters);
+
+                int temp1 = y[x] - 20; // печать пробела(пустое место)
+                Console.SetCursorPosition(x, YPositionFields(temp1, height));
+                Console.Write(' ');
+
+            }
+            waitHandler.Set();
+        }
+        public void myThread3()
+        {
+            waitHandler.WaitOne();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            int x;
+           // y[0] = YPositionFields(y[0] + 1, height);
+
+            for (x = width * 2 / 3; x < width; ++x)
+            {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
+                int temp = y[x] - 2;  //печать символа
+                Console.SetCursorPosition(x, YPositionFields(temp, height));
+                Console.Write(Asciicharacters);
+
+                int temp1 = y[x] - 20; // печать пробела(пустое место)
+                Console.SetCursorPosition(x, YPositionFields(temp1, height));
+                Console.Write(' ');
+
+                if (x == width / 5 || x == width / 2) //печать никнейма
+                {
+                    int endTextPrintSim = randomNumber.Next(endText.Length);
+                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
+                    Console.Write(endText[endTextPrintSim]);
+                }
+
+            }
+            waitHandler.Set();
+        }
+
+    }
+
+    /*static void ColumnUpdate(int width, int height, int[] y)
+    {
+        if (Counter <= flowSpeed)//0-200
+        {
+            myThread11.Start();
+            myThread21.Start();
+            myThread11.Join();
+        }
+    }*/
 }
