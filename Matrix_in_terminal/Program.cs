@@ -50,7 +50,7 @@ class Program
     }
     static void Main()
     {
-        CallBack();
+        //CallBack();
         Console.ForegroundColor = ConsoleColor.DarkGreen; //basecolor;
         Console.WindowLeft = Console.WindowTop = 0;
         Console.WindowHeight = Console.BufferHeight = Console.LargestWindowHeight;
@@ -77,9 +77,9 @@ class Program
             myThread1.Start();
             myThread2.Start();
             myThread3.Start();
-            myThread1.Join();
+            /*myThread1.Join();
             myThread2.Join();
-            myThread3.Join();
+            myThread3.Join();*/
         }
     }
 
@@ -112,15 +112,18 @@ class Program
     record class Person(int width, int height, int[] y)
     {
         AutoResetEvent waitHandler = new AutoResetEvent(true);
+       // y[0] = YPositionFields(y[0] + 1, height);
         public void myThread1()
         {
             waitHandler.WaitOne();
-            //Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             int x;
-            y[0] = YPositionFields(y[0] + 1, height);
+            //y[0] = YPositionFields(y[0] + 1, height);
 
             for (x = 1; x < width / 3; ++x)
             {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
                 int temp = y[x] - 2;  //печать символа
                 Console.SetCursorPosition(x, YPositionFields(temp, height));
                 Console.Write(Asciicharacters);
@@ -129,19 +132,20 @@ class Program
                 Console.SetCursorPosition(x, YPositionFields(temp1, height));
                 Console.Write(' ');
 
-                y[x] = YPositionFields(y[x] + 1, height);
             }
             waitHandler.Set();
         }
         public void myThread2()
         {
             waitHandler.WaitOne();
-            // Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             int x;
-            y[0] = YPositionFields(y[0] + 1, height);
+            //y[0] = YPositionFields(y[0] + 1, height);
 
             for (x = width / 3; x < width * 2 / 3; ++x)
             {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
                 int temp = y[x] - 2;  //печать символа
                 Console.SetCursorPosition(x, YPositionFields(temp, height));
                 Console.Write(Asciicharacters);
@@ -150,19 +154,20 @@ class Program
                 Console.SetCursorPosition(x, YPositionFields(temp1, height));
                 Console.Write(' ');
 
-                y[x] = YPositionFields(y[x] + 1, height);
             }
             waitHandler.Set();
         }
         public void myThread3()
         {
             waitHandler.WaitOne();
-            // Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             int x;
-            y[0] = YPositionFields(y[0] + 1, height);
+           // y[0] = YPositionFields(y[0] + 1, height);
 
             for (x = width * 2 / 3; x < width; ++x)
             {
+                y[x] = YPositionFields(y[x] + 1, height);
+             
                 int temp = y[x] - 2;  //печать символа
                 Console.SetCursorPosition(x, YPositionFields(temp, height));
                 Console.Write(Asciicharacters);
@@ -178,7 +183,6 @@ class Program
                     Console.Write(endText[endTextPrintSim]);
                 }
 
-                y[x] = YPositionFields(y[x] + 1, height);
             }
             waitHandler.Set();
         }
