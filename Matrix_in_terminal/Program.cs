@@ -13,72 +13,6 @@ namespace testtttt_matrix2
         static Random randomPosition = new Random();
         static Random randomNumber = new Random();
 
-        // создаем новый поток
-        Thread myThread1 = new Thread(new ThreadStart(tws.thred1));
-        Thread myThread2 = new Thread(thred2);
-        ThreadWithState tws = new ThreadWithState(
-                        "This report displays the number {0}.", 42);
-
-        //--------------------------------------------------
-        public class ThreadWithState
-        {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
-
-            // The constructor obtains the state information.
-            public ThreadWithState(string text, int number)
-            {
-                boilerplate = text;
-                numberValue = number;
-            }
-
-            public void ThreadProc()
-            {
-                Console.WriteLine(boilerplate, numberValue);
-            }
-        }
-
-        // Entry point for the example.
-        //
-
-        public static void Main()
-        {
-            // Supply the state information required by the task.
-            ThreadWithState tws = new ThreadWithState(
-                "This report displays the number {0}.", 42);
-
-            // Create a thread to execute the task, and then
-            // start the thread.
-            Thread t = new Thread(new ThreadStart(tws.ThreadProc));
-            t.Start();
-            Console.WriteLine("Main thread does some work, then waits.");
-            t.Join();
-            Console.WriteLine("Independent task has completed; main thread ends.");
-        }
-
-        //--------------------------------------------------------
-
-
-        static int flowSpeed = 200;
-        static int fastFlow = flowSpeed + 40; //время удаление// 240
-        static int textFlow = flowSpeed + 40; //время ускорения//240
-        static int textEnd = flowSpeed + 0;
-
-
-
-        static string[] colors = Enum.GetNames(typeof(ConsoleColor));
-        static int index = 0;
-
-        /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
-         static ConsoleColor cyancolor = ConsoleColor.Cyan;
-         static ConsoleColor fadedcolor = ConsoleColor.White;*/
-        /*static ConsoleColor basecolor = ConsoleColor.DarkGreen;
-        static ConsoleColor cyancolor = ConsoleColor.DarkGreen;
-        static ConsoleColor fadedcolor = ConsoleColor.DarkGreen;*/
-
-
-
         static String endText = "ApostaL_oxsar"; //никнейм
 
         static char Asciicharacters //генерация символа
@@ -107,24 +41,9 @@ namespace testtttt_matrix2
             int[] y;
             Initialize(out whidth, out height, out y);
 
-            while (true)
-            {
-                Counter++;
-                ColumnUpdate(whidth, height, y);
-                if (Counter > textEnd)
-                {
-                    Counter = 0;
-                    //if (Counter % 100 == 0) CallBack();
-                }
-            }
+            while (true) ColumnUpdate(whidth, height, y);
         }
 
-        static void CallBack()
-        {
-            Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), colors[index]);
-            index++;
-            if (index == colors.Length) index = 0;
-        }
         public static int YPositionFields(int yPosition, int height) //ограничение выхожа за границы 
         {
             if (yPosition < 0) return yPosition + height;
@@ -146,161 +65,35 @@ namespace testtttt_matrix2
             }
         }
 
-        public class ThreadWithState
-        {
-            // State information used in the task.
-            private string boilerplate;
-            private int numberValue;
-
-            // The constructor obtains the state information.
-            public thred1(int width, int height, int[] y)
-            {
-                int x;
-                y[0] = YPositionFields(y[0] + 1, height);
-            }
-
-            public void thred11()
-            {
-                int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-            }
-        }
-        /*private static void thred1()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 0; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }*/
-        private static void thred2()
-        {
-            int x;
-            y[0] = YPositionFields(y[0] + 1, height);
-            for (x = 1; x < width; x = x + 2)
-            {
-
-                int temp = y[x] - 2;  //печать символа
-                Console.SetCursorPosition(x, YPositionFields(temp, height));
-                Console.Write(Asciicharacters);
-
-                int temp1 = y[x] - 20; // печать пробела(пустое место)
-                Console.SetCursorPosition(x, YPositionFields(temp1, height));
-                Console.Write(' ');
-
-                if (x == width / 5 || x == width / 2) //печать никнейма
-                {
-                    int endTextPrintSim = randomNumber.Next(endText.Length);
-                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                    Console.Write(endText[endTextPrintSim]);
-                }
-
-                y[x] = YPositionFields(y[x] + 1, height);
-            }
-        }
         private static void ColumnUpdate(int width, int height, int[] y)
         {
-            /*int x
-                , k3 = 5
-                , k4 = 9;
-            y[0] = YPositionFields(y[0] + 1, height);*/
-            if (Counter <= flowSpeed)//0-200
+            int x
+              , k3 = 10
+              , k4 = 20;
+            y[0] = YPositionFields(y[0] + 1, height);
+            for (x = 0; x < width; x = x + 2) // 0 2 4 8 10 12 14 16 18 20
             {
-                myThread1.Start();
-                myThread2.Start();
-            }
-            /*else if (Counter >= flowSpeed && Counter < textFlow) //200-240
-            {
-                for (x = 0; x < width; ++x)
+                if (x % 30 == k3) Console.ForegroundColor = ConsoleColor.White;
+                else if (x % 30 == k4) Console.ForegroundColor = ConsoleColor.DarkBlue;
+                else Console.ForegroundColor = ConsoleColor.DarkGreen;
+
+                int temp = y[x] - 2;  //печать символа
+                Console.SetCursorPosition(x, YPositionFields(temp, height));
+                Console.Write(Asciicharacters);
+
+                int temp1 = y[x] - 20; // печать пробела(пустое место)
+                Console.SetCursorPosition(x, YPositionFields(temp1, height));
+                Console.Write(' ');
+
+                if (x == width / 5 || x == width / 2) //печать никнейма
                 {
-                    //if (x % 10 == k3) Console.ForegroundColor = cyancolor;
-                    //else if (x % 10 == k4) Console.ForegroundColor = fadedcolor;
-                    //else Console.ForegroundColor = basecolor;
-
-                    y[x] = YPositionFields(y[x] + 1, height);
-
-                    Console.SetCursorPosition(x, y[x]);
-                    Console.Write(Asciicharacters);
-
-                    if (x == width / 5 || x == width / 3) //печать никнейма
-                    {
-                        int endTextPrintSim = randomNumber.Next(endText.Length);
-                        Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                        Console.Write(endText[endTextPrintSim]);
-                    }
+                    int endTextPrintSim = randomNumber.Next(endText.Length);
+                    Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
+                    Console.Write(endText[endTextPrintSim]);
                 }
-            }*/
-            //else if (Counter >= fastFlow /*&& Counter < 300*/) //240-360
-            /* {
-                 for (x = 0; x < width; ++x)
-                 {
-                     int temp = YPositionFields(y[x] - 20, height);
-                     Console.SetCursorPosition(x, YPositionFields(temp, height));
-                     Console.Write(' ');
 
-                     y[x] = YPositionFields(y[x] + 1, height);
-
-                     if (x == width / 50 || x == width / 20) //печать никнейма
-                     {
-                         int endTextPrintSim = randomNumber.Next(endText.Length);
-                         Console.SetCursorPosition(width - (endText.Length - endTextPrintSim), height - 1);
-                         Console.Write(endText[endTextPrintSim]);
-                     }
-                 }
-             }*/
-            /*else if (Counter >= 300)
-            {
-                Console.SetCursorPosition(width / 2 - 76, height / 2);
-                Console.Write("        ____     _        __                                   __                   __                            __                          ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 1);
-                Console.Write("       / __  |  (_)  ____/ /   _____           ____   ____    / /  __  __  _____   / /_   ____ _   __  __  ___   / /_   _____   __  __  ____ _");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 2);
-                Console.Write("      / /_/ /  / /  / __  /   / ___/          / __ | / __ |  / /  / / / / / ___/  / __ | / __ `/  / / / / / _ | / __/  / ___/  / / / / / __ `/");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 3);
-                Console.Write("     / ____/  / /  / /_/ /   / /             / /_/ // /_/ / / /  / /_/ / / /__   / / / // /_/ /  / /_/ / /  __// /_   (__  )  / /_/ / / /_/ / ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 4);
-                Console.Write("    /_/      /_/   |__,_/   /_/             / .___/ |____/ /_/   |__,_/  |___/  /_/ /_/ |__,_/   |__, /  |___/ |__/  /____/   |__, /  |__,_/  ");
-                Console.SetCursorPosition(width / 2 - 76, height / 2 + 5);
-                Console.Write("                                           /_/                                                  /____/                       /____/           ");
-
-            }*/
+                y[x] = YPositionFields(y[x] + 1, height);
+            }
         }
     }
 }
