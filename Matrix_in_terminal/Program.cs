@@ -5,41 +5,46 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace testtttt_matrix2
+
+
+class Program
 {
-    class Program
-    {
-        static int Counter;
-        static Random randomPosition = new Random();
-        static Random randomNumber = new Random();
+    static int Counter;
+    static Random randomPosition = new Random();
+    static Random randomNumber = new Random();
 
         static String endText = "ApostaL_oxsar"; //никнейм
 
-        static char Asciicharacters //генерация символа
+    static char Asciicharacters //генерация символа
+    {
+        get
         {
-            get
-            {
-                int t = randomPosition.Next(9);
+            int t = randomPosition.Next(9);
 
-                if (t <= 2) return (char)('0' + randomPosition.Next(10));
-                else if (t <= 4) return (char)('a' + randomPosition.Next(26));
-                else if (t <= 8) return (char)('A' + randomPosition.Next(26));
-                else return (char)(randomPosition.Next(32, 255));
-            }
+            if (t <= 2) return (char)('0' + randomPosition.Next(10));
+            else if (t <= 4) return (char)('a' + randomPosition.Next(26));
+            else if (t <= 8) return (char)('A' + randomPosition.Next(26));
+            else return (char)(randomPosition.Next(32, 255));
         }
-        static void Main()
-        {
+    }
+    static void Main()
+    {
+        //CallBack();
+        Console.ForegroundColor = ConsoleColor.DarkGreen; //basecolor;
+        Console.WindowLeft = Console.WindowTop = 0;
+        Console.WindowHeight = Console.BufferHeight = Console.LargestWindowHeight;
+        Console.WindowWidth = Console.BufferWidth = Console.LargestWindowWidth;
+        Console.SetWindowPosition(0, 0);
+        Console.CursorVisible = false;
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen; //basecolor;
-            Console.WindowLeft = Console.WindowTop = 0;
-            Console.WindowHeight = Console.BufferHeight = Console.LargestWindowHeight;
-            Console.WindowWidth = Console.BufferWidth = Console.LargestWindowWidth;
-            Console.SetWindowPosition(0, 0);
-            Console.CursorVisible = false;
-
-            int whidth, height;
-            int[] y;
-            Initialize(out whidth, out height, out y);
+        int whidth, height;
+        int[] y;
+        AutoResetEvent waitHandler = new AutoResetEvent(true);
+        Initialize(out whidth, out height, out y);
+        Person whidthHeightYForTherad1 = new Person(whidth, height, y);
+        /* Thread myThread1 = new Thread(whidthHeightYForTherad1.myThread1);
+         Thread myThread2 = new Thread(whidthHeightYForTherad1.myThread2);
+         Thread myThread3 = new Thread(whidthHeightYForTherad1.myThread3);*/
 
             while (true) ColumnUpdate(whidth, height, y);
         }
@@ -50,14 +55,14 @@ namespace testtttt_matrix2
             if (yPosition < height) return yPosition;
             return 0;
 
-        }
+    }
 
-        private static void Initialize(out int width, out int height, out int[] y) //определение разрешение и генерация масива связи х с у
-        {
-            height = Console.WindowHeight;
-            width = Console.WindowWidth - 1;
-            y = new int[width];
-            Console.Clear();
+    private static void Initialize(out int width, out int height, out int[] y) //определение разрешение и генерация масива связи х с у
+    {
+        height = Console.WindowHeight;
+        width = Console.WindowWidth - 1;
+        y = new int[width];
+        Console.Clear();
 
             for (int x = 0; x < width; ++x)
             {
